@@ -1,0 +1,50 @@
+<.header>
+  Store <%= @store.id %>
+  <:subtitle>This is a store record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/stores/#{@store}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit store</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Street address"><%= @store.street_address %></:item>
+  <:item title="City"><%= @store.city %></:item>
+  <:item title="State"><%= @store.state %></:item>
+  <:item title="Zipcode"><%= @store.zipcode %></:item>
+  <:item title="Store identifier"><%= @store.store_identifier %></:item>
+  <:item title="Product Information: "><%= for product <- @store.products do %>
+  <table>
+  <tr>
+    <td>Product Name: <%= product.product_name %></td>
+  </tr>
+  <tr>
+    <td>Inventory Count: <%= product.current_inventory_count %></td>
+  </tr>
+  <tr>
+    <td>Wholesale Price: <%= product.wholesale_price %></td>
+  </tr>
+  <tr>
+    <td>Retail Price: <%= product.retail_price %></td>
+  </tr>
+  <tr>
+    <td>-----------------------</td>
+  </tr>
+</table>
+
+<% end %></:item>
+</.list>
+
+<.back navigate={~p"/stores"}>Back to stores</.back>
+
+<.modal :if={@live_action == :edit} id="store-modal" show on_cancel={JS.patch(~p"/stores/#{@store}")}>
+  <.live_component
+    module={SmsAppWeb.StoreLive.FormComponent}
+    id={@store.id}
+    title={@page_title}
+    action={@live_action}
+    store={@store}
+    patch={~p"/stores/#{@store}"}
+  />
+</.modal>

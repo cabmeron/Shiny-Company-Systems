@@ -1,0 +1,46 @@
+<.header>
+  Listing Stores
+  <:actions>
+    <.link patch={~p"/stores/new"}>
+      <.button>New Store</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="stores"
+  rows={@streams.stores}
+  row_click={fn {_id, store} -> JS.navigate(~p"/stores/#{store}") end}
+>
+  <:col :let={{_id, store}} label="Street address"><%= store.street_address %></:col>
+  <:col :let={{_id, store}} label="City"><%= store.city %></:col>
+  <:col :let={{_id, store}} label="State"><%= store.state %></:col>
+  <:col :let={{_id, store}} label="Zipcode"><%= store.zipcode %></:col>
+  <:col :let={{_id, store}} label="Store identifier"><%= store.store_identifier %></:col>
+  <:col :let={{_id, store}} label="Products"><%= Enum.map(store.products, &(&1.product_name)) |> Enum.join(",") %></:col>
+  <:action :let={{_id, store}}>
+    <div class="sr-only">
+      <.link navigate={~p"/stores/#{store}"}>Show</.link>
+    </div>
+    <.link patch={~p"/stores/#{store}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, store}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: store.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="store-modal" show on_cancel={JS.patch(~p"/stores")}>
+  <.live_component
+    module={SmsAppWeb.StoreLive.FormComponent}
+    id={@store.id || :new}
+    title={@page_title}
+    action={@live_action}
+    store={@store}
+    patch={~p"/stores"}
+  />
+</.modal>

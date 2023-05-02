@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" style="scrollbar-gutter: stable;">
+  <head>
+    <header id="Page_Buttons">
+      <nav>
+        <ul>
+          <li>
+            <a href="/" class="home-button">Home</a>
+            <a href="/employees" class="employees_show-button">Employees</a>
+            <a href="/stores" class="stores_show-button">Stores</a>
+            <a href="/products" class="products_show-button">Products</a>
+
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Phoenix Framework">
+      <%= assigns[:page_title] || "SmsApp" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+  </head>
+  <body class="bg-white antialiased">
+    <%= @inner_content %>
+  </body>
+</html>

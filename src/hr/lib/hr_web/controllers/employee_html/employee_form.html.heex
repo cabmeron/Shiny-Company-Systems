@@ -1,0 +1,13 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:employee_identifier]} type="text" label="Employee identifier" />
+  <.input field={f[:last_name]} type="text" label="Last name" />
+  <.input field={f[:first_name]} type="text" label="First name" />
+  <.input field={f[:date_of_hire]} type="date" label="Date of hire" />
+  <.input field={f[:department]} type="text" label="Department" />
+  <:actions>
+    <.button>Save Employee</.button>
+  </:actions>
+</.simple_form>

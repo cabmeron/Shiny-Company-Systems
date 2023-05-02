@@ -1,0 +1,33 @@
+<.header>
+  Product <%= @product.id %>
+  <:subtitle>This is a product record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/products/#{@product}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit product</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Product name"><%= @product.product_name %></:item>
+  <:item title="Vendor name"><%= @product.vendor_name %></:item>
+  <:item title="Wholesale price"><%= @product.wholesale_price %></:item>
+  <:item title="Retail price"><%= @product.retail_price %></:item>
+  <:item title="Current inventory count"><%= @product.current_inventory_count %></:item>
+  <:item title="Store Address"><%= @product.store.street_address %>, <%= @product.store.city %>, <%= @product.store.state %>, <%= @product.store.zipcode %></:item>
+
+</.list>
+
+<.back navigate={~p"/products"}>Back to products</.back>
+
+<.modal :if={@live_action == :edit} id="product-modal" show on_cancel={JS.patch(~p"/products/#{@product}")}>
+  <.live_component
+    module={SmsAppWeb.ProductLive.FormComponent}
+    id={@product.id}
+    title={@page_title}
+    action={@live_action}
+    product={@product}
+    patch={~p"/products/#{@product}"}
+    stores={@stores}
+  />
+</.modal>

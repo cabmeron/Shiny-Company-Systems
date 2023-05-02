@@ -1,0 +1,42 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+
+
+#Title{
+    padding-top: 100px;
+    text-align: center;
+    font-size: 65px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#gif1{
+    padding-top: 35px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+#SMS{
+    padding-top: 35px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+
+#HR{
+    padding-top: 20px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+
+}
+
+#Page_Buttons{
+    
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+}
